@@ -8,12 +8,35 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController ()<UITableViewDataSource>
 
 @end
 
 @implementation ViewController
 
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+# define CELL_ID @"CELL_ID"
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_ID];
+    
+    if(nil == cell)
+    {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_ID];
+    }
+    else{
+        NSLog(@"셀 재사용!");
+    }
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"Cell %d",indexPath.row];
+    
+    return  cell;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
